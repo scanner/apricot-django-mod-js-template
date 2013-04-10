@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% block title %}Treasure Island{% endblock title %}
+
+{% block require_javascript %}
+    require(['treasuremap/js/islands']);
+{% endblock require_javascript %}
+
+{% block content %}
+    <div class="invisible">
+        {% csrf_token %}
+        <input type="hidden" value="{% url 'treasuremap_get_islands' %}" data-bind="saveURL: loadIslands" />
+    </div>
+    <div class="island-list" data-bind="'template': { 'name': 'island-template', 'foreach': islands }"></div>
+
+    <script type="text/html" id="island-template">
+        <div class="island">
+            <p data-bind="'text': name"></p>
+            <a data-bind="'attr': {'href': getURL('{% url 'treasuremap_load_island' '%d' %}') }">{% trans "Open Map" %}</a>
+        </div>
+    </script>
+{% endblock content %}

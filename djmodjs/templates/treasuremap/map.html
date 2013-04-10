@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% block title %}Treasure Island{% endblock title %}
+
+{% block page_css %}{% endblock page_css %}
+
+{% block require_javascript %}
+    require(['treasuremap/js/map']);
+{% endblock require_javascript %}
+
+{% block content %}
+    <div class="invisible">
+        {% csrf_token %}
+        <input type="hidden" value="{% url 'treasuremap_get_treasures' island_id %}" data-bind="saveURL: loadTreasures"/>
+    </div>
+    <div class="treasure-list" data-bind="'template': { 'name': 'treasure-template', 'foreach': treasures }"></div>
+
+    <script type="text/html" id="treasure-template">
+        <div class="treasure">
+            <p data-bind="'text': name"></p>
+            <p data-bind="'text': price"></p>
+        </div>
+    </script>
+{% endblock content %}
