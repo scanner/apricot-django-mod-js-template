@@ -2,3 +2,4 @@ Django>=1.5.2
 django-compressor==1.2
 Fabric==1.7.0
 South==0.8.2
+psycopg2==2.5.1

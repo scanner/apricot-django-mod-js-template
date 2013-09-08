@@ -5,7 +5,7 @@ from datetime import timedelta
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 
-from djcelery import setup_loader
+# from djcelery import setup_loader
 
 
 ########## PATH CONFIGURATION
@@ -40,7 +40,7 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('Your Name', 'your_email@example.com'),
+    ('Scanner', 'scanner@apricot.com'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -113,7 +113,7 @@ STATICFILES_FINDERS = (
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = r"&amp;o9mh**!1rt9k1fvn9+=2pj_bjibfo&amp;$3y%w--3@r$w-3q^35%"
+SECRET_KEY = r"{{secret_key}}"
 ########## END SECRET CONFIGURATION
 
 
@@ -199,11 +199,11 @@ THIRD_PARTY_APPS = (
     'compressor',
 
     # Asynchronous task queue:
-    'djcelery',
+    # 'djcelery',
 )
 
 LOCAL_APPS = (
-    'treasuremap',
+    # 'treasuremap',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -216,9 +216,15 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+            }
+        },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
+            'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         }
     },
@@ -238,7 +244,7 @@ LOGGING = {
 CELERY_TASK_RESULT_EXPIRES = timedelta(minutes=30)
 
 # See: http://celery.github.com/celery/django/
-setup_loader()
+# setup_loader()
 ########## END CELERY CONFIGURATION
 
 
