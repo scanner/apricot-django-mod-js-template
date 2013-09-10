@@ -1,29 +1,31 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=8;FF=3;OtherUA=4" />
-        <title>{% block title %}{% endblock title %}</title>
-        {% block site_css %}{% endblock site_css %}
-        {% block page_css %}{% endblock page_css %}
-        {% block head_javascript %}
-        <script type="text/javascript">
-            var require = {
-                baseUrl: '{{ STATIC_URL }}'
-            };
-        </script>
-        <script type="text/javascript" src="http://cdn.jsdelivr.net/requirejs/2.1.4/require.js"></script>
-        <script type="text/javascript">
-            require(['common'], function (common) {
-                {% block require_javascript %}
-                {% endblock require_javascript %}
-            });
-        </script>
-        {% endblock head_javascript %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block head_description %}{% endblock head_description %}">
+    <meta name="author" content="{% block head_author %}{% endblock head_author %}">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+    <title>{% block title %}{% endblock title %}</title>
+    {% block site_css %}{% endblock site_css %}
+    {% block page_css %}{% endblock page_css %}
+    {% block head_javascript %}
+    <script type="text/javascript">
+      var require = {
+        baseUrl: '{{ STATIC_URL }}'
+      };
+    </script>
+    <script type="text/javascript" src="http://cdn.jsdelivr.net/requirejs/2.1.4/require.js"></script>
+    <script type="text/javascript">
+      require(['common'], function (common) {
+        {% block require_javascript %}
+        {% endblock require_javascript %}
+      });
+    </script>
+    {% endblock head_javascript %}
     </head>
     <body>
-        <div id="page_container">
+        <div class="container" id="page_container">
         {% block header %}{% endblock header %}
         {% block content %}{% endblock content %}
         {% block footer %}{% endblock footer %}
